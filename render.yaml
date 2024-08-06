@@ -3,7 +3,7 @@ services:
   name: nextjs-static
   runtime: static
   buildCommand: yarn; yarn build
-  staticPublishPath: .next
+  staticPublishPath: out
   envVars:
   - key: NODE_ENV
     value: production
