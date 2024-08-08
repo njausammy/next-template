@@ -3,8 +3,8 @@ import { Box, Stack, Typography, Avatar, useTheme, useMediaQuery } from '@mui/ma
 
 const PatientDetails: React.FC = () => {
     const theme = useTheme();
-    const isMediumScreen = useMediaQuery(theme.breakpoints.only('md')); // Targeting only 'md'
-    const isExtraSmallScreen = useMediaQuery(theme.breakpoints.only('xs')); // Targeting only 'xs'
+    const isMediumScreen = useMediaQuery(theme.breakpoints.only('md')); 
+    const isExtraSmallScreen = useMediaQuery(theme.breakpoints.only('xs')); 
 
     const showOneColumn = isMediumScreen || isExtraSmallScreen;
 

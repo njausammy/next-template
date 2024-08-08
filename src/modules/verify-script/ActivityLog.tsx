@@ -1,18 +1,22 @@
 import React from 'react';
-import { Timeline, TimelineItem, timelineItemClasses, TimelineSeparator, TimelineConnector, TimelineContent, TimelineDot } from '@mui/lab';
-import { Typography, Box, Stack, useTheme } from '@mui/material';
+import { Timeline, TimelineItem, TimelineSeparator, TimelineConnector, TimelineContent, TimelineDot } from '@mui/lab';
+import { Typography, Box, Avatar, Stack, useTheme } from '@mui/material';
 import { Email as EmailIcon, Medication as MedicationIcon, Error as ErrorIcon, LocationOn as LocationOnIcon, LocalPharmacy as LocalPharmacyIcon } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { format, isToday } from 'date-fns';
 
-
-const TimelineContentStyled = styled(TimelineContent)(() => ({
+const TimelineContentStyled = styled(TimelineContent)(({ theme }) => ({
     padding: '16px 0',
 }));
 
+export const shouldForwardProp =
+    <TCustomProps extends Record<string, unknown>>(customProps: ReadonlyArray<keyof TCustomProps>) =>
+        (prop: string): boolean =>
+            !customProps.includes(prop);
+
 const StyledTimelineDot = styled(TimelineDot, {
-    shouldForwardProp: (prop) => prop !== 'actionType',
-})(({ theme, actionType }) => ({
+    shouldForwardProp: shouldForwardProp(['actionType']),
+})<{ actionType: string }>(({ theme, actionType }) => ({
     margin: 0,
     boxShadow: 'none',
     backgroundColor: actionType === 'Send mail' ? theme.palette.secondary.main : theme.palette.primary.main,
@@ -20,7 +24,7 @@ const StyledTimelineDot = styled(TimelineDot, {
 }));
 
 const TimelineStyled = styled(Timeline)(({ theme }) => ({
-    [`& .${timelineItemClasses.root}:before`]: {
+    '& .MuiTimelineItem-root:before': {
         flex: 0,
         padding: 0,
     },
@@ -59,7 +63,6 @@ interface LogEntry {
 }
 
 const ActivityLog: React.FC = () => {
-
     const logData: LogEntry[] = [
         { id: 1, timestamp: '2024-08-08T08:00', action: 'Piliton (item 2) issued', actionType: 'Issue item', pharmacyBranch: "Central Avenue", pharmacy: "GreenLeaf Pharmacy" },
         { id: 3, timestamp: '2024-08-08T08:00', action: 'Original script sent by email', actionType: 'Send mail', pharmacyBranch: "Central Avenue", pharmacy: "GreenLeaf Pharmacy", emailRecipient: 'd***m@medicpharm.co.za' },
@@ -89,22 +92,19 @@ const ActivityLog: React.FC = () => {
                             </Typography>
                             <Stack direction="row" spacing={1} alignItems="center" sx={{ marginTop: '8px' }}>
                                 <LocalPharmacyIcon sx={{ fontSize: 20, color: 'text.secondary' }} />
-
                                 <Typography variant="body2" color="textSecondary">
                                     {log.pharmacy}
                                 </Typography>
                             </Stack>
                             <Stack direction="row" spacing={1} alignItems="center" sx={{ marginTop: '4px' }}>
-                                <LocationOnIcon sx={{ fontSize: 20, color: '' }} />
+                                <LocationOnIcon sx={{ fontSize: 20, color: 'text.secondary' }} />
                                 <Typography variant="body2" color="textSecondary">
                                     {log.pharmacyBranch}
                                 </Typography>
                             </Stack>
                             {log.actionType === 'Send mail' && (
                                 <Stack direction="row" spacing={1} alignItems="center" sx={{ marginTop: '4px' }}>
-                                    <EmailIcon sx={{
-                                        fontSize: 20,
-                                    }} />
+                                    <EmailIcon sx={{ fontSize: 20, color: 'text.secondary' }} />
                                     <Typography variant="body2" color="textSecondary">
                                         Sent to: <strong>{log.emailRecipient}</strong>
                                     </Typography>

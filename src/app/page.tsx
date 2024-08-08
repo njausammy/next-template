@@ -124,7 +124,7 @@ interface IProps {
   scanQR: () => void;
 }
 
-const VerifyScript = ({ searchScript, scanQR }: IProps) => {
+const VerifyScript = () => {
 
   const router = useRouter();
   const [error, setError] = React.useState<string | null>(null);
@@ -207,7 +207,7 @@ const VerifyScript = ({ searchScript, scanQR }: IProps) => {
                 variant="outlined"
                 color="primary"
                 type="button"
-                onClick={scanQR}
+                // onClick={scanQR}
               >
                 QR Code
               </Button>
