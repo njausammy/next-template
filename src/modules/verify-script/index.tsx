@@ -45,7 +45,7 @@ const Section = styled(Paper)(({ theme }) => ({
 const VerifyScriptView: React.FC = () => {
   const [showBanner, setShowBanner] = React.useState(true);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleBannerClose = () => {
     setShowBanner(false);
@@ -71,35 +71,56 @@ const VerifyScriptView: React.FC = () => {
         direction={isMobile ? 'column' : 'row'}
         gap={4}
       >
-        <Box
-          flexShrink={0}
-          sx={{
-            maxWidth: isMobile ? 'none' : '400px',
-            flexGrow: 0
-          }}
-        >
-          <Section variant="elevation">
-            <Typography variant="h6" gutterBottom>Script Details</Typography>
-            <PatientDetails />
-          </Section >
-          <Section variant="elevation">
-            <Typography variant="h6" gutterBottom>Activity Log</Typography>
-            <ActivityLog />
-          </Section>
-        </Box>
-        <Box
-          flexGrow={1}
-          sx={{ minWidth: 0 }}
-        >
-
-          <Section variant="elevation">
-            <Typography variant="h6" gutterBottom>Getting Started</Typography>
-            <Instructions />
-          </Section>
-          <Section variant="elevation">
-            <IssueLineItem />
-          </Section>
-        </Box>
+        {isMobile ? (
+          <>
+            <Section variant="elevation">
+              <Typography variant="h6" gutterBottom>Getting Started</Typography>
+              <Instructions />
+            </Section>
+            <Section variant="elevation">
+              <Typography variant="h6" gutterBottom>Script Details</Typography>
+              <PatientDetails />
+            </Section>
+            <Section variant="elevation">
+              <IssueLineItem />
+            </Section>
+            <Section variant="elevation">
+              <Typography variant="h6" gutterBottom>Activity Log</Typography>
+              <ActivityLog />
+            </Section>
+          </>
+        ) : (
+          <>
+            <Box
+              flexShrink={0}
+              sx={{
+                maxWidth: isMobile ? 'none' : '400px',
+                flexGrow: 0
+              }}
+            >
+              <Section variant="elevation">
+                <Typography variant="h6" gutterBottom>Script Details</Typography>
+                <PatientDetails />
+              </Section >
+              <Section variant="elevation">
+                <Typography variant="h6" gutterBottom>Activity Log</Typography>
+                <ActivityLog />
+              </Section>
+            </Box>
+            <Box
+              flexGrow={1}
+              sx={{ minWidth: 0 }}
+            >
+              <Section variant="elevation">
+                <Typography variant="h6" gutterBottom>Getting Started</Typography>
+                <Instructions />
+              </Section>
+              <Section variant="elevation">
+                <IssueLineItem />
+              </Section>
+            </Box>
+          </>
+        )}
       </Stack>
     </MainBody>
   );

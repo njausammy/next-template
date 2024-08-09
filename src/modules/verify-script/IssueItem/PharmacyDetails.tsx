@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { Stack, Checkbox, Switch, FormControlLabel, TextField } from "@mui/material";
-import { useForm, Controller } from "react-hook-form";
-import StyledTextField from "@/components/Forms/TextField";
+import { Stack, Switch, FormControlLabel } from "@mui/material";
+import {  Control } from "react-hook-form";
+import Input from "@/components/Forms/TextField/InputController"
+import { IFormValues } from ".";
 
+interface PharmacyDetailsProps {
+  control: Control<IFormValues>;
+}
 
-const PharmacyDetails = () => {
-  const [isEmailChecked, setIsEmailChecked] = useState(false);
+const PharmacyDetails: React.FC<PharmacyDetailsProps> = ({ control }) => {
   const [receiveEmail, setReceiveEmail] = useState(false);
-
-  const handleEmailCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsEmailChecked(event.target.checked);
-  };
 
   const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setReceiveEmail(event.target.checked);
@@ -18,17 +17,40 @@ const PharmacyDetails = () => {
 
   return (
     <Stack spacing={{ xs: 3, sm: 2 }}>
-      <StyledTextField label="Script Number" placeholder="Script Number" fullWidth />
+      <Input
+        name="scriptNumber"
+        control={control}
+        label="Script Number"
+        placeholder="Script Number"
+      />
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }}>
-        <StyledTextField label="Pharmacy Name" placeholder="Pharmacy Name" fullWidth />
-        <StyledTextField label="Pharmacy Branch" placeholder="Branch Name" fullWidth />
+        <Input
+          name="pharmacyName"
+          control={control}
+          label="Pharmacy Name"
+          placeholder="Pharmacy Name"
+        />
+        <Input
+          name="pharmacyBranch"
+          control={control}
+          label="Pharmacy Branch"
+          placeholder="Branch Name"
+        />
       </Stack>
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }}>
-        <StyledTextField label="Dispensing Pharmacist Name" placeholder="Your full name" fullWidth />
-        <StyledTextField label="Dispensing Pharmacist Number" placeholder="Your Pharmacy Council Number" fullWidth />
+        <Input
+          name="pharmacistName"
+          control={control}
+          label="Dispensing Pharmacist Name"
+          placeholder="Your full name"
+        />
+        <Input
+          name="pharmacistNumber"
+          control={control}
+          label="Dispensing Pharmacist Number"
+          placeholder="Your Pharmacy Council Number"
+        />
       </Stack>
-
-      
       <FormControlLabel
         control={
           <Switch
@@ -36,13 +58,14 @@ const PharmacyDetails = () => {
             onChange={handleSwitchChange}
           />
         }
-        label=""
+        label="Receive Email?"
       />
       {receiveEmail && (
-        <StyledTextField
+        <Input
+          name="emailAddress"
+          control={control}
           label="Email Address"
           placeholder="Enter your email address"
-          fullWidth
         />
       )}
     </Stack>

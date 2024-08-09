@@ -3,10 +3,8 @@ import { Box, Stack, Typography, Avatar, useTheme, useMediaQuery } from '@mui/ma
 
 const PatientDetails: React.FC = () => {
     const theme = useTheme();
-    const isMediumScreen = useMediaQuery(theme.breakpoints.only('md')); 
-    const isExtraSmallScreen = useMediaQuery(theme.breakpoints.only('xs')); 
-
-    const showOneColumn = isMediumScreen || isExtraSmallScreen;
+    const isMediumScreen = useMediaQuery(theme.breakpoints.down('md')); 
+    
 
     return (
         <Stack spacing={4}>
@@ -48,7 +46,7 @@ const PatientDetails: React.FC = () => {
                     Prescription Summary
                 </Typography>
                 <Stack 
-                    direction={showOneColumn ? 'column' : 'row'} 
+                    direction={isMediumScreen ? 'column' : 'row'} 
                     justifyContent="space-between" 
                     spacing={4}
                 >

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Card, Typography, Checkbox, useTheme } from '@mui/material';
+import { Controller } from 'react-hook-form';
 import { styled } from '@mui/material/styles';
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -30,7 +31,11 @@ interface LineItem {
     issue: boolean;
 }
 
-const LineItems: React.FC = () => {
+interface LineItemsProps {
+    control: any; // Control from react-hook-form
+}
+
+const LineItems: React.FC<LineItemsProps> = ({ control }) => {
     const theme = useTheme();
 
     const scriptContentData: LineItem[] = [
@@ -67,7 +72,23 @@ const LineItems: React.FC = () => {
                         <Typography variant="body2" color="textSecondary">
                             Issue?
                         </Typography>
-                        <Checkbox checked={item.issue} />
+                        <Controller
+                            name="lineItemIds"
+                            control={control}
+                            render={({ field }) => (
+                                <Checkbox
+                                    checked={field.value.includes(item.id)}
+                                    onChange={(e) => {
+                                        const isChecked = e.target.checked;
+                                        if (isChecked) {
+                                            field.onChange([...field.value, item.id]);
+                                        } else {
+                                            field.onChange(field.value.filter((id: number) => id !== item.id));
+                                        }
+                                    }}
+                                />
+                            )}
+                        />
                     </ActionBox>
                 </StyledCard>
             ))}
