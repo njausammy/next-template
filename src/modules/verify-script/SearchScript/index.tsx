@@ -11,7 +11,7 @@ import {
     Fade,
     CircularProgress,
     TextField,
-    Alert, // Import Alert component
+    Alert,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useRouter } from 'next/navigation';
@@ -29,6 +29,10 @@ const Container = styled(Stack)(({ theme }) => ({
     minHeight: '100vh',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.default,
+    padding: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+        padding: theme.spacing(4), 
+    },
 }));
 
 const StyledPaper = styled(Stack)(({ theme }) => ({
@@ -38,6 +42,9 @@ const StyledPaper = styled(Stack)(({ theme }) => ({
     borderRadius: theme.shape.borderRadius * 2,
     boxShadow: theme.shadows[10],
     backgroundColor: theme.palette.background.paper,
+    [theme.breakpoints.down('sm')]: {
+        padding: theme.spacing(2),
+    },
 }));
 
 const SubmitButton = styled(Button)(({ theme }) => ({
@@ -73,10 +80,9 @@ const VerifyScript = () => {
                 src="https://app.prescribepro.com/assets/pp.png"
                 alt="Prescribe Pro"
                 loading="lazy"
-                width={300}
-                style={{ filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.2))' }}
+                width="100%"
+                style={{ maxWidth: '300px', filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.2))' }}
             />
-            <Fade in={true} timeout={1000}>
                 <StyledPaper spacing={4} alignItems="center">
                     {error && (
                         <Alert severity="error" onClose={() => setError(null)} sx={{ mb: 2 }}>
@@ -127,7 +133,6 @@ const VerifyScript = () => {
                         </Typography>
                     </Box>
                 </StyledPaper>
-            </Fade>
         </Container>
     );
 };
