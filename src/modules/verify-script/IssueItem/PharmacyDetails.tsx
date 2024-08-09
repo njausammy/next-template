@@ -58,7 +58,7 @@ const PharmacyDetails: React.FC<PharmacyDetailsProps> = ({ control }) => {
             onChange={handleSwitchChange}
           />
         }
-        label="Receive Email?"
+        label="Would you like a copy of the script sent to you?"
       />
       {receiveEmail && (
         <Input

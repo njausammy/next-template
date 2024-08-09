@@ -14,7 +14,7 @@ import PatientDetails from './PatientDetails';
 import IssueLineItem from './IssueItem'
 
 const MainBody = styled(Container)(({ theme }) => ({
-  padding: theme.spacing(1),
+  padding: theme.spacing(2),
 }));
 
 const Banner = styled(Alert)(({ theme }) => ({
@@ -95,7 +95,7 @@ const VerifyScriptView: React.FC = () => {
               flexShrink={0}
               sx={{
                 maxWidth: isMobile ? 'none' : '400px',
-                flexGrow: 0
+                flexGrow: 0,
               }}
             >
               <Section variant="elevation">
